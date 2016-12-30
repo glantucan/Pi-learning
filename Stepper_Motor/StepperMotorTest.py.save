@@ -1,0 +1,107 @@
+#!/usr/bin/env/ python
+# -*- coding: utf-8 -*-
+
+## TODO: Support for negative angles
+
+import RPi.GPIO as GPIO
+
+import time
+import sys
+
+
+GPIO.setmode(GPIO.BCM) # Set GPIO numbers by BCM references
+
+# Define the pins to be used for the inputs in the motor controller
+controlPins = [4, 17, 27, 22]
+
+# Set thos pins to output mode
+for pin in controlPins:
+	# print ("Setting pin " + str(pin) + " to OUTPUT mode")
+	GPIO.setup(pin, GPIO.OUT)
+	GPIO.output(pin, 0)
+	
+# Define the array of step arrays for half stepping
+seq = [
+	[1,0,0,0],
+	[1,1,0,0],
+	[0,1,0,0],
+	[0,1,1,0],
+	[0,0,1,0],
+	[0,0,1,1],
+	[0,0,0,1],
+	[1,0,0,1]
+]
+
+lastHalfStep = 0
+stepDuration = 0.001
+
+def rotateSteps(steps): 
+	global lastHalfStep
+	delayedSteps = 0
+	steps += lastHalfStep
+	if steps > 8:
+		delayedSteps = steps - 8
+		steps = 8
+		
+	for halfstep in range(lastHalfStep, steps, 1): # Complete sequence of halfsteps = 0.703 deg
+		# Set the pins for each halfstep
+		#print(str(halfstep))
+		for pin in range(4):
+		# Set each pin
+			GPIO.output(controlPins[pin], seq[halfstep][pin])
+			
+		time.sleep(stepDuration)
+		lastHalfStep = halfstep + 1
+	if delayedSteps > 0:
+		lastHalfStep = 0
+		#print("recursive call")
+		rotateSteps(delayedSteps)
+	
+def rotateCycles(cycles):
+	incr = 1 
+	start = 0
+	end = cycles
+	if (cycles < 0):
+		start = 0
+		incr = cycles
+	print(range(cycles))
+	for i in range(cycles): # full revolution = 512 cycles of all steps
+		rotateSteps(8)
+		print(i)
+
+def rotate(angle):
+	cycleAngle = 360 / 512
+	stepAngle = cycleAngle / 8
+	cycles = int(angle / cycleAngle)
+	angleRest = angle - cycles * cycleAngle
+	remainingSteps = int(angleRest / stepAngle)
+	
+	
+	# print("cycleAngle: " + str(cycleAngle))
+	# print("stepAngle: " + str(stepAngle))
+	print("cycles: " + str(cycles))
+	print("reproduced angle: " + str(cycles * cycleAngle))
+	print("angleRest: " + str(angleRest))
+	print("remainingSteps: " + str(remainingSteps))
+
+	rotateCycles(cycles)
+	rotateSteps(remainingSteps)		
+
+def exitAndCleanUp():
+	for pin in controlPins:
+		GPIO.setup(pin, GPIO.OUT)
+		GPIO.output(pin, 0)
+	
+	GPIO.cleanup()	
+
+
+try:
+	if len(sys.argv) > 1:
+		for i in range(1, len(sys.argv), 1):
+			print("---> rotating " + str(sys.argv[i]) + " degrees")
+			rotate(float(sys.argv[i]))
+			time.sleep(0.5)
+	exitAndCleanUp()
+	
+except KeyboardInterrupt:
+	exitAndCleanUp()

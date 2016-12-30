@@ -1,0 +1,41 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+HelloWorld.py	Tests/HelloWorld.py	1;"	kind:file	line:1
+LedPin	Tests/gpio_led.py	/^LedPin = 11 # physical number correponding to GPIO0 (GPIO17)$/;"	kind:variable	line:6
+LedPin	Tests/gpio_led_morse.py	/^LedPin = 11 # physical number correponding to GPIO0 (GPIO17)$/;"	kind:variable	line:60
+StepperMotorTest.py	Stepper_Motor/StepperMotorTest.py	1;"	kind:file	line:1
+StepperMotorTest_02.py	Stepper_Motor/StepperMotorTest_02.py	1;"	kind:file	line:1
+controlPins	Stepper_Motor/StepperMotorTest.py	/^controlPins = [4, 17, 27, 22]$/;"	kind:variable	line:15
+controlPins	Stepper_Motor/StepperMotorTest_02.py	/^controlPins = [4, 17, 27, 22]$/;"	kind:variable	line:15
+dash	Tests/gpio_led_morse.py	/^def dash():$/;"	kind:function	line:73
+dashTime	Tests/gpio_led_morse.py	/^dashTime = 0.27$/;"	kind:variable	line:57
+dot	Tests/gpio_led_morse.py	/^def dot():$/;"	kind:function	line:67
+dotTime	Tests/gpio_led_morse.py	/^dotTime = 0.09$/;"	kind:variable	line:58
+exitAndCleanUp	Stepper_Motor/StepperMotorTest.py	/^def exitAndCleanUp():$/;"	kind:function	line:92
+exitAndCleanUp	Stepper_Motor/StepperMotorTest_02.py	/^def exitAndCleanUp():$/;"	kind:function	line:93
+functions.py	Tests/functions.py	1;"	kind:file	line:1
+gpio_led.py	Tests/gpio_led.py	1;"	kind:file	line:1
+gpio_led_morse.py	Tests/gpio_led_morse.py	1;"	kind:file	line:1
+increment	Tests/functions.py	/^def increment(val):$/;"	kind:function	line:2
+lastHalfStep	Stepper_Motor/StepperMotorTest.py	/^lastHalfStep = 0$/;"	kind:variable	line:35
+lastHalfStep	Stepper_Motor/StepperMotorTest_02.py	/^lastHalfStep = 0$/;"	kind:variable	line:35
+letterMap	Tests/gpio_led_morse.py	/^letterMap = {' ': ' ',$/;"	kind:variable	line:7
+message	Tests/gpio_led_morse.py	/^message = "Hola mundo."$/;"	kind:variable	line:79
+printing2console.py	Tests/printing2console.py	1;"	kind:file	line:1
+result	Tests/functions.py	/^result = increment(val)$/;"	kind:variable	line:7
+rotate	Stepper_Motor/StepperMotorTest.py	/^def rotate(angle):$/;"	kind:function	line:74
+rotate	Stepper_Motor/StepperMotorTest_02.py	/^def rotate(angle):$/;"	kind:function	line:75
+rotateCycles	Stepper_Motor/StepperMotorTest.py	/^def rotateCycles(cycles): $/;"	kind:function	line:60
+rotateCycles	Stepper_Motor/StepperMotorTest_02.py	/^def rotateCycles(cycles): $/;"	kind:function	line:61
+rotateSteps	Stepper_Motor/StepperMotorTest.py	/^def rotateSteps(steps): $/;"	kind:function	line:38
+rotateSteps	Stepper_Motor/StepperMotorTest_02.py	/^def rotateSteps(steps, clockwise): $/;"	kind:function	line:38
+seq	Stepper_Motor/StepperMotorTest.py	/^seq = [$/;"	kind:variable	line:24
+seq	Stepper_Motor/StepperMotorTest_02.py	/^seq = [$/;"	kind:variable	line:24
+stepDuration	Stepper_Motor/StepperMotorTest.py	/^stepDuration = 0.001$/;"	kind:variable	line:36
+stepDuration	Stepper_Motor/StepperMotorTest_02.py	/^stepDuration = 0.001$/;"	kind:variable	line:36
+val	Tests/functions.py	/^val = 1$/;"	kind:variable	line:6
+x	Tests/printing2console.py	/^x = 42$/;"	kind:variable	line:1
