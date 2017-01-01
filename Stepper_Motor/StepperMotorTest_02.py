@@ -16,10 +16,11 @@ controlPins = [4, 17, 27, 22]
 
 # Set thos pins to output mode
 for pin in controlPins:
-	print ("Setting pin " + str(pin) + " to OUTPUT mode")
+	time.sleep(0)
+	#print("Setting pin " + str(pin) + " to OUTPUT mode")
 #	GPIO.setup(pin, GPIO.OUT)
 #	GPIO.output(pin, 0)
-	
+
 # Define the array of step arrays for half stepping
 seq = [
 	[1,0,0,0],
@@ -31,75 +32,47 @@ seq = [
 	[0,0,0,1],
 	[1,0,0,1]
 ]
-
+generalStepCounter = 0
 lastHalfStep = 0
 stepDuration = 0.001
 
-def rotateSteps(steps, clockwise): 
-	
+def rotateSteps(steps):
+	print()
 	global lastHalfStep
+	global generalStepCounter
 	delayedSteps = 0
 	steps += lastHalfStep
-	if steps > 8:
-		delayedSteps = steps - 8
-		steps = 8
-		
-	for halfstep in range(lastHalfStep, steps, 1): # Complete sequence of halfsteps = 0.703 deg
+	inc = 1 if steps > 0 else -1
+
+	for halfstep in range(lastHalfStep, steps, inc): # Complete sequence of halfsteps = 0.703 deg
 		# Set the pins for each halfstep
 		#print(str(halfstep))
+		curStep = halfstep % len(seq)
 		for pin in range(4):
 		# Set each pin
-			#GPIO.output(controlPins[pin], seq[halfstep][pin])
-			print()
-		print(str(halfstep) + ': ' +','.join(str(x) for x in seq[halfstep]) )
+			#GPIO.output(controlPins[pin], seq[curStep][pin])
+			time.sleep(0)
+		print(str(generalStepCounter) + ', ' + str(curStep) + ': ' +','.join(str(x) for x in seq[curStep]) )
 		time.sleep(stepDuration)
-		lastHalfStep = halfstep + 1
-	if delayedSteps > 0:
-		lastHalfStep = 0
-		#print("recursive call")	
-		if (delayedSteps<0):
-			rotateSteps(delayedSteps, False)
-		else:
-			rotateSteps(delayedSteps, True)
+		lastHalfStep = curStep + inc
+		generalStepCounter += inc
 
-def rotateCycles(cycles): 
-	min = 0
-	max = cycles
-	incr = 1
-	steps = 8
-	if (cycles < 0):
-		min = cycles
-		max = 0
-		incr = 1
-		steps = -8
-	for i in range(min, max, incr): # full revolution = 512 cycles of all steps
-		if (steps<0):
-			rotateSteps(steps, False)
-		else:
-			rotateSteps(steps, True)
-		print(i)
 
 def rotate(angle):
 	cycleAngle = 360 / 512
 	stepAngle = cycleAngle / 8
 	cycles = int(angle / cycleAngle)
 	angleRest = angle - cycles * cycleAngle
-	remainingSteps = int(angleRest / stepAngle)
+	remainingSteps = int(round(angleRest / stepAngle))
 	
-	
-	# print("cycleAngle: " + str(cycleAngle))
-	# print("stepAngle: " + str(stepAngle))
+	print("cycleAngle: " + str(cycleAngle))
+	print("stepAngle: " + str(stepAngle))
 	print("cycles: " + str(cycles))
 	print("reproduced angle: " + str(cycles * cycleAngle))
 	print("angleRest: " + str(angleRest))
 	print("remainingSteps: " + str(remainingSteps))
-
-	rotateCycles(cycles)
-	if (remainingSteps<0):
-		rotateSteps(remainingSteps, False)
-	else:
-		rotateSteps(remainingSteps, True)
-	print(i)
+	
+	rotateSteps(cycles*8 + remainingSteps)
 
 			
 
