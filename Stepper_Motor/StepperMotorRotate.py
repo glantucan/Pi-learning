@@ -1,10 +1,6 @@
 #!/usr/bin/env/ python3
 # -*- coding: utf-8 -*-
-
-## TODO: Support for negative angles
-
-#import RPi.GPIO as GPIO
-
+import RPi.GPIO as GPIO
 import time
 import sys
 
@@ -18,8 +14,8 @@ controlPins = [4, 17, 27, 22]
 for pin in controlPins:
 	time.sleep(0)
 	#print("Setting pin " + str(pin) + " to OUTPUT mode")
-#	GPIO.setup(pin, GPIO.OUT)
-#	GPIO.output(pin, 0)
+	GPIO.setup(pin, GPIO.OUT)
+	GPIO.output(pin, 0)
 
 # Define the array of step arrays for half stepping
 seq = [
@@ -46,13 +42,12 @@ def rotateSteps(steps):
 
 	for halfstep in range(lastHalfStep, steps, inc): # Complete sequence of halfsteps = 0.703 deg
 		# Set the pins for each halfstep
-		#print(str(halfstep))
 		curStep = halfstep % len(seq)
 		for pin in range(4):
 		# Set each pin
-			#GPIO.output(controlPins[pin], seq[curStep][pin])
+			GPIO.output(controlPins[pin], seq[curStep][pin])
 			time.sleep(0)
-		print(str(generalStepCounter) + ', ' + str(curStep) + ': ' +','.join(str(x) for x in seq[curStep]) )
+		#print(str(generalStepCounter) + ', ' + str(curStep) + ': ' +','.join(str(x) for x in seq[curStep]) )
 		time.sleep(stepDuration)
 		lastHalfStep = curStep + inc
 		generalStepCounter += inc
@@ -78,10 +73,10 @@ def rotate(angle):
 
 def exitAndCleanUp():
 	for pin in controlPins:
-#		GPIO.setup(pin, GPIO.OUT)
-#		GPIO.output(pin, 0)
+		GPIO.setup(pin, GPIO.OUT)
+		GPIO.output(pin, 0)
 		print('Cleanup!')
-#	GPIO.cleanup()	
+	GPIO.cleanup()	
 
 
 try:
