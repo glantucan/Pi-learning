@@ -5,7 +5,7 @@ import time
 import sys
 
 
-#GPIO.setmode(GPIO.BCM) # Set GPIO numbers by BCM references
+GPIO.setmode(GPIO.BCM) # Set GPIO numbers by BCM references
 
 # Define the pins to be used for the inputs in the motor controller
 controlPins = [4, 17, 27, 22]
@@ -13,7 +13,7 @@ controlPins = [4, 17, 27, 22]
 # Set thos pins to output mode
 for pin in controlPins:
 	time.sleep(0)
-	#print("Setting pin " + str(pin) + " to OUTPUT mode")
+	print("Setting pin " + str(pin) + " to OUTPUT mode")
 	GPIO.setup(pin, GPIO.OUT)
 	GPIO.output(pin, 0)
 
