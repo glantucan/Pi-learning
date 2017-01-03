@@ -1,8 +1,6 @@
 #!/usr/bin/env/ python3
 # -*- coding: utf-8 -*-
 
-## TODO: Support for negative angles
-
 #import RPi.GPIO as GPIO
 
 import time
@@ -34,13 +32,12 @@ seq = [
 ]
 generalStepCounter = 0
 lastHalfStep = 0
-stepDuration = 0.001
 
 minDuration = 0.001
 maxDuration = 0.1
+stepDuration = maxDuration
 
-def rotateSteps(steps):
-	print()
+def rotateSteps(steps, accel=0.1):
 	global lastHalfStep
 	global generalStepCounter
 	global stepDuration
@@ -56,10 +53,9 @@ def rotateSteps(steps):
 		# Set each pin
 			#GPIO.output(controlPins[pin], seq[curStep][pin])
 			time.sleep(0)
-		print(str(generalStepCounter) + ', (duration: ' + stepDuration  + ') ' +  str(curStep) + ': ' +','.join(str(x) for x in seq[curStep]) )
 		
-		stepDuration = maxDuration * 0.5
-		stepDuration = stepDuration if stepDuration >= minDuration else minDuration
+		stepDuration = stepDuration*(1-accel) if stepDuration >= minDuration*(1+accel) else minDuration
+		print(str(generalStepCounter) + ', (duration: ' + str(stepDuration)  + ') ' +  str(curStep) + ': ' +','.join(str(x) for x in seq[curStep]) )
 
 		time.sleep(stepDuration)
 		lastHalfStep = curStep + inc

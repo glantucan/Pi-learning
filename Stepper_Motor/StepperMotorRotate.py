@@ -30,12 +30,15 @@ seq = [
 ]
 generalStepCounter = 0
 lastHalfStep = 0
-stepDuration = 0.001
 
-def rotateSteps(steps):
-	print()
+minDuration = 0.001
+maxDuration = 0.1
+stepDuration = maxDuration
+
+def rotateSteps(steps, accel=0.1):
 	global lastHalfStep
 	global generalStepCounter
+	global stepDuration
 	delayedSteps = 0
 	steps += lastHalfStep
 	inc = 1 if steps > 0 else -1
@@ -47,7 +50,10 @@ def rotateSteps(steps):
 		# Set each pin
 			GPIO.output(controlPins[pin], seq[curStep][pin])
 			time.sleep(0)
-		#print(str(generalStepCounter) + ', ' + str(curStep) + ': ' +','.join(str(x) for x in seq[curStep]) )
+
+		stepDuration = stepDuration*(1-accel) if stepDuration >= minDuration*(1+accel) else minDuration
+		#print(str(generalStepCounter) + ', (duration: ' + str(stepDuration)  + ') ' +  str(curStep) + ': ' +','.join(str(x) for x in seq[curStep]) )
+
 		time.sleep(stepDuration)
 		lastHalfStep = curStep + inc
 		generalStepCounter += inc
