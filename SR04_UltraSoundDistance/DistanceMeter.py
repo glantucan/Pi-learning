@@ -23,10 +23,9 @@ GPIO.output(TRIG, False)
 
 while GPIO.input(ECHO) == 0:
     pulseStart = time.time()
-while GPIO.input(ECHO) > 0:
-    print(GPIO.input(ECHO))
-    if GPIO.input(ECHO) == 1:
-        pulseEnd = time.time()
+
+while GPIO.input(ECHO) == 1:
+    pulseEnd = time.time()
 
 pulse_duration = pulseEnd - pulseStart
 
