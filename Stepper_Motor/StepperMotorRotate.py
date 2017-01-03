@@ -35,7 +35,7 @@ minDuration = 0.001
 maxDuration = 0.1
 stepDuration = maxDuration
 
-def rotateSteps(steps, accel=0.1):
+def rotateSteps(steps, accel=0.5):
 	global lastHalfStep
 	global generalStepCounter
 	global stepDuration
@@ -91,7 +91,7 @@ try:
 		for i in range(1, len(sys.argv), 1):
 			print("---> rotating " + str(sys.argv[i]) + " degrees")
 			rotate(float(sys.argv[i]))
-			time.sleep(0.5)
+			time.sleep(maxDuration)
 	exitAndCleanUp()
 	
 except KeyboardInterrupt:
