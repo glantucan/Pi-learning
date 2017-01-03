@@ -57,7 +57,8 @@ def rotateSteps(steps, accel=0.1):
 		time.sleep(stepDuration)
 		lastHalfStep = curStep + inc
 		generalStepCounter += inc
-
+	# Reset stepDuration to its original value
+	stepDuration = maxDuration
 
 def rotate(angle):
 	cycleAngle = 360 / 512
