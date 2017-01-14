@@ -36,10 +36,13 @@ GPIO.output(in4, 0)
 			
 
 def exitAndCleanUp():
-	for pin in controlPins:
-		GPIO.setup(pin, GPIO.OUT)
-		GPIO.output(pin, 0)
-		print('Cleanup!')
+	GPIO.output(enA, 0)
+	GPIO.output(enB, 0)
+	GPIO.output(in1, 0)
+	GPIO.output(in2, 0)
+	GPIO.output(in3, 0)
+	GPIO.output(in4, 0)
+	print('Cleanup!')
 	GPIO.cleanup()	
 
 
