@@ -32,9 +32,6 @@ in4 = 21
 GPIO.setup(in4, GPIO.OUT)
 GPIO.output(in4, 0)
 
-
-			
-
 def exitAndCleanUp():
 	GPIO.output(enA, 0)
 	GPIO.output(enB, 0)
@@ -43,7 +40,7 @@ def exitAndCleanUp():
 	GPIO.output(in3, 0)
 	GPIO.output(in4, 0)
 	print('Cleanup!')
-	GPIO.cleanup()	
+	GPIO.cleanup()
 
 
 try:
