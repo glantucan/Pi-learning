@@ -45,17 +45,28 @@ def exitAndCleanUp():
 
 try:
     # right wheels forward
+    GPIO.output(enA, 1)
     GPIO.output(in1, 1)
     time.sleep(2)
-    GPIO.output(in1, 1)
-	exitAndCleanUp()
+    GPIO.output(in1, 0)
+
+    # right wheels backwaards
+    GPIO.output(in2, 1)
+    time.sleep(2)
+    GPIO.output(in2, 0)
+
+
+    # left wheels forward
+    GPIO.output(enB, 1)
+    GPIO.output(in4, 1) # instead of 3 because motors are inverted
+    time.sleep(2)
+    GPIO.output(in4, 0)
+
+    # left wheels backwaards
+    GPIO.output(in3, 1)
+    time.sleep(2)
+    GPIO.output(in3, 0)
+    exitAndCleanUp()
 	
 except KeyboardInterrupt:
-	exitAndCleanUp()
-
-
-
-
-
-
-
+    exitAndCleanUp()
