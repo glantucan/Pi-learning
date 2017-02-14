@@ -1,0 +1,29 @@
+Format: 1.8
+Date: Tue, 29 Sep 2015 20:56:41 +0800
+Source: pi-blaster
+Binary: pi-blaster
+Architecture: source armhf
+Version: 0.1.2
+Distribution: unstable
+Urgency: low
+Maintainer: Boyuan Yang <073plan@gmail.com>
+Changed-By: Boyuan Yang <073plan@gmail.com>
+Description:
+ pi-blaster - Daemon for PWM control of the Raspberry Pi GPIO pins
+Changes:
+ pi-blaster (0.1.2) unstable; urgency=low
+ .
+   * Initial release as deb package.
+   * Add systemd support to the deb package.
+Checksums-Sha1:
+ fa06301526e761fec4e23490f5d8ddc6fbe2e237 728 pi-blaster_0.1.2.dsc
+ 0215557af4cd592ac7b08607b0b19ec7ff8faa01 79840 pi-blaster_0.1.2.tar.xz
+ 780edd0fceab76c74c08e3d8c6cd0c8285410044 15260 pi-blaster_0.1.2_armhf.deb
+Checksums-Sha256:
+ 5a748a29829e651dbb9c094baae2b8f9ae020dd269c2f89b091ccf7ce6f77779 728 pi-blaster_0.1.2.dsc
+ f6db270a50e0ab295669df62d0696847c621073b50b7307f02fa7f1c9800966c 79840 pi-blaster_0.1.2.tar.xz
+ a5d29cea5ad3f6eca4905079b2f845abc26deca3e14079962928431b79245eee 15260 pi-blaster_0.1.2_armhf.deb
+Files:
+ 41c561843a1112c00daa9d537bd61012 728 electronics optional pi-blaster_0.1.2.dsc
+ 3ec67ae5e1c1c0b9d37e3fdf34a02023 79840 electronics optional pi-blaster_0.1.2.tar.xz
+ c51303ee338da1eae41b5821af14c334 15260 electronics optional pi-blaster_0.1.2_armhf.deb
