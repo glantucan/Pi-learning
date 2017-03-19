@@ -20,7 +20,6 @@ if (__name__ == "__main__"):
         buttons[pin]['led'].setColor(0, 0, 0)
         buttons[pin]['button'].addEventCallback(GPIO.RISING, onButtonPress, 500)
 
-
     buttons = {
         5: {
             'led': LED_RGB_PCA9685(1500, 14, 13, 12),
