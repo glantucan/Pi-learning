@@ -1,53 +1,68 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
-import time
-import math
+#import math
 import RPi.GPIO as GPIO
-# Import the PCA9685 module.
+# Import the PCA9685 module. Needs to obe installed 
+# (sudo pip3 install adafruit-pca9685)
 import Adafruit_PCA9685
+# Import wiringpi. Needed if you want submilisecond intervals 
+# i.e. wiringpi.delayMicroseconds(100)
+# To install follow this instructions: https://github.com/Gadgetoid/WiringPi2-Python
+#import wiringpi 
+#import time
 
-frequency = 71
 
-# Initialise the PCA9685 using the default address (0x40).
-pwm = Adafruit_PCA9685.PCA9685()
-# Alternatively specify a different address and/or bus:
-#pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
+# Assumes common cathode configuration
+class LED_RGB_PCA9685:
 
-# Set frequency.
-pwm.set_pwm_freq(frequency)
+	def __init__(self, freq, rChannel, gChannel, bChannel):
+		self.__rCh = rChannel
+		self.__gCh = gChannel
+		self.__bCh = bChannel
+		self.__freq = freq
+		# Give public access to the adafruit library
+		self.pwm = Adafruit_PCA9685.PCA9685()
+		self.pwm.set_pwm_freq(freq)
+		self.__r = 0
+		self.__g = 0
+		self.__b = 0
 
-rMax = 1000
-gbMax = 700
-	
-counter = 0
-deg2rad = math.pi/180
-while True:
-	B1 = int(math.floor(math.sin((counter*1.1 + 0) * deg2rad) * gbMax) + gbMax)
-	G1 = int(math.floor(math.sin((counter*1.2 + 0) * deg2rad) * gbMax) + gbMax)
-	R1 = int(math.floor(math.sin((counter*1.3 + 0) * deg2rad) * rMax) + rMax)
-	B2 = int(math.floor(math.sin((counter*1.1 + 30) * deg2rad) * gbMax) + gbMax)
-	G2 = int(math.floor(math.sin((counter*1.2 + 30) * deg2rad) * gbMax) + gbMax)
-	R2 = int(math.floor(math.sin((counter*1.3 + 30) * deg2rad) * rMax) + rMax)
-	B3 = int(math.floor(math.sin((counter*1.1 + 60) * deg2rad) * gbMax) + gbMax)
-	G3 = int(math.floor(math.sin((counter*1.2 + 60) * deg2rad) * gbMax) + gbMax)
-	R3 = int(math.floor(math.sin((counter*1.3 + 60) * deg2rad) * rMax) + rMax)
-	B4 = int(math.floor(math.sin((counter*1.1 + 90) * deg2rad) * gbMax) + gbMax)
-	G4 = int(math.floor(math.sin((counter*1.2 + 90) * deg2rad) * gbMax) + gbMax)
-	R4 = int(math.floor(math.sin((counter*1.3 + 90) * deg2rad) * rMax) + rMax)
-	pwm.set_pwm(0, 0, B1)
-	pwm.set_pwm(1, 0, G1)
-	pwm.set_pwm(2, 0, R1)
-	pwm.set_pwm(4, 0, B2)
-	pwm.set_pwm(5, 0, G2)
-	pwm.set_pwm(6, 0, R2)
-	pwm.set_pwm(7, 0, B3)
-	pwm.set_pwm(8, 0, G3)
-	pwm.set_pwm(10, 0, R3)
-	pwm.set_pwm(12, 0, B4)
-	pwm.set_pwm(13, 0, G4)
-	pwm.set_pwm(14, 0, R4)
-	#time.sleep(0.000001)
-	counter += 1
-	
+	def setColor(self, r, g, b):
+		self.__r = r
+		self.__g = g
+		self.__b = b
+		self.pwm.set_pwm(self.__rCh, 0, r)
+		self.pwm.set_pwm(self.__gCh, 0, g)
+		self.pwm.set_pwm(self.__bCh, 0, b)
+
+	# Properties
+	@property
+	def r(self):
+		return self.__r
+	@r.setter
+	def r(self, r):
+		self.__r = r
+
+	@property
+	def g(self):
+		return self.__g
+	@r.setter
+	def g(self, g):
+		self.__g = g
+
+	@property
+	def b(self):
+		return self.__b
+	@r.setter
+	def b(self, b):
+		self.__b = b
+
+
+if (__name__ == "__main__"):
+	try:
+		led1 = LED_RGB_PCA9685(1500, 2, 1, 0)
+		led1.setColor(1000, 0, 0)
+	finally:
+		led1.setColor(0, 0, 0)
+		GPIO.cleanup()
